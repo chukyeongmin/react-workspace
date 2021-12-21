@@ -18,15 +18,15 @@
         //useState는 array를 제공. 그리고 첫번째 element가 현재의 값
         //input 태그 속성 {minutes} => input값을 외부에서도 수정해주기 위해
         const [amount, setAmount] = React.useState(0);
-        const [flipped, setFlipped] = React.useState(false);
+        const [inverted, setInverted] = React.useState(false);
         const onChange = (event) => {
             event.preventDefault();
             setAmount(event.target.value);
         }
         const reset = () => setAmount(0);
-        const onFlip = () => {
+        const onInvert = () => {
             reset();
-            setFlipped((current) => !current)
+            setInverted((current) => !current)
         };
         return (
           <div>
@@ -34,12 +34,12 @@
             <div>
               <label htmlFor="minutes">Minutes</label>
               <input 
-                value={flipped ? amount*60 : amount}
+                value={inverted ? amount*60 : amount}
                 id ="minutes" 
                 placeholder="Minutes" 
                 type="number" 
                 onChange= {onChange}
-                disabled={flipped}
+                disabled={inverted}
               />
             </div>
             <h3>You want to convert {amount}</h3>
@@ -47,16 +47,16 @@
             <div>
               <label htmlFor="hours">Hours</label>
               <input 
-                value={flipped ? amount : Math.round(amount / 60)}
+                value={inverted ? amount : Math.round(amount / 60)}
                 id="hours" 
                 placeholder="Hours" 
                 type="number" 
                 onChange={onChange}
-                disabled={!flipped}
+                disabled={!inverted}
               />
             </div>
             <button onClick={reset}>Reset</button>
-            <button onClick={onFlip}>Flip</button>
+            <button onClick={onInvert}>{inverted ? "Minute" : "Hour"}</button>
           </div>
         );
     }
